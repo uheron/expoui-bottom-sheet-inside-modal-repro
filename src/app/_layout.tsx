@@ -1,37 +1,24 @@
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from "expo-router";
-import { ComponentProps } from "react";
-import { Platform, useColorScheme } from "react-native";
-
-export const commonModalOptions: ComponentProps<
-  typeof Stack.Screen
->["options"] = {
-  animation: Platform.select({
-    android: "slide_from_bottom",
-    native: "default",
-  }),
-  contentStyle: { backgroundColor: "white" },
-  headerTintColor: "blue",
-  headerTitleAlign: "center",
-  headerTitleStyle: { color: "contrast" },
-  presentation: "modal",
-};
+import { BottomSheetModalProvider } from "@expo/ui/community/bottom-sheet";
+import {
+  DarkTheme,
+  DefaultTheme,
+  Stack,
+  ThemeProvider,
+} from "expo-router";
+import { useColorScheme } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import "react-native-reanimated";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="index" options={{ title: "Home" }} />
-        <Stack.Screen
-          options={{
-            ...commonModalOptions,
-            headerShadowVisible: false,
-            headerTitle: "Modal",
-            presentation: "fullScreenModal",
-          }}
-        />
-      </Stack>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <BottomSheetModalProvider>
+          <Stack />
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
     </ThemeProvider>
   );
 }

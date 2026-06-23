@@ -8,8 +8,11 @@ export default function BottomSheetScrollableExample() {
   const sheetRef = useRef<BottomSheet>(null);
 
   return (
-    <View style={{ flex: 1 }}>
-      <Button title="Open Bottom Sheet" onPress={() => sheetRef.current?.snapToIndex(0)} />
+    <View>
+      <Button
+        title="Open Bottom Sheet"
+        onPress={() => sheetRef.current?.snapToIndex(0)}
+      />
 
       <BottomSheet
         ref={sheetRef}

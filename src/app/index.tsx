@@ -1,25 +1,26 @@
-import { Button, StyleSheet, View } from "react-native";
-
 import BottomSheetScrollableExample from "@/components/BottomSheetScrollableExample";
-import { Spacing } from "@/constants/theme";
-import { router } from "expo-router";
+import { FlatList, Text, View } from "react-native";
 
-export default function HomeScreen() {
+export default function Home() {
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
+      <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+        Bottom sheet by itself
+      </Text>
       <BottomSheetScrollableExample />
-      <Button title="Open Modal" onPress={() => router.push("/modal")} />
+
+      <FlatList
+        ListHeaderComponent={() => (
+          <>
+            <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+              Bottom sheet inside flatlist
+            </Text>
+            <BottomSheetScrollableExample />
+          </>
+        )}
+        data={Array.from({ length: 5 }, (_, i) => `Item ${i + 1}`)}
+        renderItem={({ item }) => <Text>{item}</Text>}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: Spacing.one,
-  },
-  inner: {},
-});
