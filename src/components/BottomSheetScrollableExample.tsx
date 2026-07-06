@@ -1,6 +1,7 @@
 import BottomSheet from "@expo/ui/community/bottom-sheet";
 import { useRef } from "react";
-import { Button, FlatList, Text, View } from "react-native";
+import { Button, FlatList, View } from "react-native";
+import { ItemWithAButton } from "./ItemWithAButton";
 
 const DATA = Array.from({ length: 50 }, (_, i) => `Item ${i + 1}`);
 
@@ -26,9 +27,7 @@ export default function BottomSheetScrollableExample() {
           data={DATA}
           keyExtractor={(item) => item}
           contentContainerStyle={{ padding: 24 }}
-          renderItem={({ item }) => (
-            <Text style={{ paddingVertical: 16 }}>{item}</Text>
-          )}
+          renderItem={({ item }) => <ItemWithAButton item={item} />}
         />
       </BottomSheet>
     </View>
